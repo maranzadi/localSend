@@ -2,7 +2,7 @@
 #include "main.h"
 
 
-int escuchar()
+int escuchar(Usuario *lista, int *cantidad)
 {
     int sock;
     int enable = 1;
@@ -49,9 +49,29 @@ int escuchar()
                 buffer,
                 inet_ntoa(from.sin_addr)
             );
+            añadir(lista, cantidad, inet_ntoa(from.sin_addr), buffer);
         }
     }
 
     close(sock);
     return 0;
+}
+
+
+int añadir(Usuario *lista, int *cantidad ,char from, char name){
+    for (size_t i = 0; i < *cantidad; i++)
+    {
+        if(strcmp(lista[i].ip, from))
+        {
+            return 0;
+        }
+        
+    }
+
+
+    strcpy(lista[*cantidad].ip, from);
+    strcpy(lista[*cantidad].name, name);
+    
+    (*cantidad)++;
+    return 1;
 }

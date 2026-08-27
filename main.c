@@ -6,6 +6,8 @@
 
 int main(int argc, char **argv) {
 
+    int cantidadDeUsuarios =0;
+
     if (argc>1)
     {
 
@@ -14,7 +16,7 @@ int main(int argc, char **argv) {
 
         if (strcmp(argv[1],"-e")==0)
         {
-            escuchar();
+            escuchar(listaUsuario, &cantidadDeUsuarios);
         }else if (strcmp(argv[1],"-i")==0)
         {
             identificar();

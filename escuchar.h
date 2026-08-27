@@ -5,4 +5,4 @@
 #include <sys/socket.h>
 
 
-int escuchar();
+int escuchar(listaUsuario, &cantidadDeUsuarios);
