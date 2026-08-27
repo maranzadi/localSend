@@ -6,6 +6,9 @@ int identificar(void){
     int broadcast = 1;
     int sock;
 
+    char *lista[65];
+    nombre(lista);
+
     struct sockaddr_in destino;
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -34,4 +37,19 @@ int identificar(void){
         (struct sockaddr *)&destino,
         sizeof(destino)
     );
+}
+
+void nombre(char *lista[]){
+    struct utsname info;
+
+    if (uname(&info) == 0) {
+        lista = info.nodename;
+        // printf("Sistema: %s\n", info.sysname);
+        // printf("Nombre:  %s\n", info.nodename);
+        // printf("Release: %s\n", info.release);
+        // printf("Versión: %s\n", info.version);
+        // printf("Máquina: %s\n", info.machine);
+    } else{
+        lista = "UNKNOW";
+    }
 }
