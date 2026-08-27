@@ -31,7 +31,7 @@ int identificar(void){
 
     sendto(
         sock,
-        "PC-LINUX",
+        lista,
         8,
         0,
         (struct sockaddr *)&destino,
