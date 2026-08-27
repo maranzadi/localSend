@@ -62,6 +62,7 @@ int añadir(Usuario *lista, int *cantidad ,char *from, char *name){
     {
         if(strcmp(lista[i].ip, from)==0)
         {
+            // printf("Ya estaba");
             return 0;
         }
         

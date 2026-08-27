@@ -36,7 +36,7 @@ int identificar(char *pcName){
 
     destino.sin_family = AF_INET;
     destino.sin_port = htons(PORT);
-    destino.sin_addr.s_addr = inet_addr("255.255.255.255");
+    destino.sin_addr.s_addr = inet_addr("255.255.255.255"); //192.168.0.255 en mac
 
     while (1)
     {

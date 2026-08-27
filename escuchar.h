@@ -7,3 +7,4 @@
 
 
 int escuchar(Usuario *lista, int *cantidad);
+int añadir(Usuario *lista, int *cantidad ,char *from, char *name);
