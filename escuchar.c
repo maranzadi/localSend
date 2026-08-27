@@ -1,5 +1,4 @@
 #include "escuchar.h"
-#include "main.h"
 
 
 int escuchar(Usuario *lista, int *cantidad)
@@ -58,7 +57,7 @@ int escuchar(Usuario *lista, int *cantidad)
 }
 
 
-int añadir(Usuario *lista, int *cantidad ,char from, char name){
+int añadir(Usuario *lista, int *cantidad ,char *from, char *name){
     for (size_t i = 0; i < *cantidad; i++)
     {
         if(strcmp(lista[i].ip, from))

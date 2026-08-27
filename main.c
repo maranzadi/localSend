@@ -3,7 +3,6 @@
 #include "escuchar.h"
 #include "identificar.h"
 
-#include "main.h"
 
 
 Usuario listaUsuario[104]; 
