@@ -2,14 +2,13 @@
 #include "main.h"
 
 
-int identificar(){
+int identificar(char *pcName){
     int broadcast = 1;
     int sock;
 
-    char lista[65];
-    nombre(lista);
+    
 
-    printf("Mi nombre: %s\n", lista);
+    // printf("Mi nombre: %s\n", pcName);
 
     struct sockaddr_in destino;
 
@@ -20,7 +19,7 @@ int identificar(){
         return 1;
     }
     
-    printf("Socket creado\n");
+    // printf("Socket creado\n");
 
 
     setsockopt(
@@ -31,7 +30,7 @@ int identificar(){
         sizeof(broadcast)
     );
 
-    printf("Broadcast habilitado\n");
+    // printf("Broadcast habilitado\n");
 
     memset(&destino, 0, sizeof(destino));
 
@@ -43,8 +42,8 @@ int identificar(){
     {
         int resultado =sendto(
             sock,
-            lista,
-            strlen(lista),
+            pcName,
+            strlen(pcName),
             0,
             (struct sockaddr *)&destino,
             sizeof(destino)
@@ -53,7 +52,7 @@ int identificar(){
         if (resultado < 0) {
             perror("sendto");
         } else {
-            printf("Enviado: %s (%d bytes)\n", lista, resultado);
+            // printf("Enviado: %s (%d bytes)\n", pcName, resultado);
         }
 
         sleep(5);
@@ -63,18 +62,3 @@ int identificar(){
     
 }
 
-void nombre(char *lista){
-    struct utsname info;
-
-    if (uname(&info) == 0) {
-        strcpy(lista, info.nodename);
-        // printf("Sistema: %s\n", info.sysname);
-        // printf("Nombre:  %s\n", info.nodename);
-        // printf("Release: %s\n", info.release);
-        // printf("Versión: %s\n", info.version);
-        // printf("Máquina: %s\n", info.machine);
-    } else{
-        strcpy(lista, "UNKNOWN");
-
-    }
-}

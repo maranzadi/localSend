@@ -9,3 +9,4 @@ typedef struct {
 
 
 int especial();
+void nombre(char *lista);
