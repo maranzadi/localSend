@@ -60,7 +60,7 @@ int escuchar(Usuario *lista, int *cantidad)
 int añadir(Usuario *lista, int *cantidad ,char *from, char *name){
     for (size_t i = 0; i < *cantidad; i++)
     {
-        if(strcmp(lista[i].ip, from))
+        if(strcmp(lista[i].ip, from)==0)
         {
             return 0;
         }
