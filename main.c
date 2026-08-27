@@ -65,10 +65,20 @@ int especial(){
         {
             printf("%s", pcName);
         }
+
+        else if (strncmp(comando, "/send", 5) &&(comando[5] == '\0' || comando[5] == ' '))
+        {
+            //Añadir para mandar un mensaje, que los pueda diferenciar
+            return 0;
+        }
+        else if (strcmp(comando, "/send")==0)
+        {
+            printf("/send <destino> <mensaje>\n");
+        }
         else if (strcmp(comando, "/help") == 0)
         {
             printf("/list\n");
-            printf("/send <nombre> <mensaje>\n");
+            printf("/send <destino> <mensaje>\n");
             printf("/name\n");
             printf("/name <newName>\n");
             printf("/quit\n");
