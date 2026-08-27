@@ -9,9 +9,19 @@ int identificar(){
     char lista[65];
     nombre(lista);
 
+    printf("Mi nombre: %s\n", lista);
+
     struct sockaddr_in destino;
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
+
+    if (sock < 0) {
+        perror("socket");
+        return 1;
+    }
+    
+    printf("Socket creado\n");
+
 
     setsockopt(
         sock,
@@ -21,6 +31,7 @@ int identificar(){
         sizeof(broadcast)
     );
 
+    printf("Broadcast habilitado\n");
 
     memset(&destino, 0, sizeof(destino));
 
@@ -30,7 +41,7 @@ int identificar(){
 
     while (1)
     {
-        sendto(
+        int resultado =sendto(
             sock,
             lista,
             strlen(lista),
@@ -38,6 +49,14 @@ int identificar(){
             (struct sockaddr *)&destino,
             sizeof(destino)
         );
+
+        if (resultado < 0) {
+            perror("sendto");
+        } else {
+            printf("Enviado: %s (%d bytes)\n", lista, resultado);
+        }
+
+        sleep(5);
     }
     
 
