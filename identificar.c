@@ -29,14 +29,20 @@ int identificar(void){
     destino.sin_port = htons(PORT);
     destino.sin_addr.s_addr = inet_addr("255.255.255.255");
 
-    sendto(
-        sock,
-        lista,
-        8,
-        0,
-        (struct sockaddr *)&destino,
-        sizeof(destino)
-    );
+    while (1)
+    {
+        sendto(
+            sock,
+            lista,
+            8,
+            0,
+            (struct sockaddr *)&destino,
+            sizeof(destino)
+        );
+    }
+    
+
+    
 }
 
 void nombre(char *lista[]){
