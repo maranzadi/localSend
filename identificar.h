@@ -7,5 +7,5 @@
 
 
 
-int identificar(void);
-void nombre(char *lista[]);
+int identificar();
+void nombre(char *lista);

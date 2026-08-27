@@ -2,7 +2,7 @@
 #include "main.h"
 
 
-int escuchar(void)
+int escuchar()
 {
     int sock;
     int enable = 1;

@@ -2,11 +2,11 @@
 #include "main.h"
 
 
-int identificar(void){
+int identificar(){
     int broadcast = 1;
     int sock;
 
-    char *lista[65];
+    char lista[65];
     nombre(lista);
 
     struct sockaddr_in destino;
@@ -21,7 +21,6 @@ int identificar(void){
         sizeof(broadcast)
     );
 
-    struct sockaddr_in destino;
 
     memset(&destino, 0, sizeof(destino));
 
@@ -34,7 +33,7 @@ int identificar(void){
         sendto(
             sock,
             lista,
-            8,
+            strlen(lista),
             0,
             (struct sockaddr *)&destino,
             sizeof(destino)
@@ -45,17 +44,18 @@ int identificar(void){
     
 }
 
-void nombre(char *lista[]){
+void nombre(char *lista){
     struct utsname info;
 
     if (uname(&info) == 0) {
-        lista = info.nodename;
+        strcpy(lista, info.nodename);
         // printf("Sistema: %s\n", info.sysname);
         // printf("Nombre:  %s\n", info.nodename);
         // printf("Release: %s\n", info.release);
         // printf("Versión: %s\n", info.version);
         // printf("Máquina: %s\n", info.machine);
     } else{
-        lista = "UNKNOW";
+        strcpy(lista, "UNKNOWN");
+
     }
 }
