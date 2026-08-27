@@ -44,11 +44,11 @@ int escuchar(Usuario *lista, int *cantidad)
         {
             buffer[n] = '\0';
 
-            printf(
-                "Encontrado: %s (%s)\n",
-                buffer,
-                inet_ntoa(from.sin_addr)
-            );
+            // printf(
+            //     "Encontrado: %s (%s)\n",
+            //     buffer,
+            //     inet_ntoa(from.sin_addr)
+            // );
             añadir(lista, cantidad, inet_ntoa(from.sin_addr), buffer);
         }
     }
