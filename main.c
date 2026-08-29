@@ -47,8 +47,8 @@ int especial(){
     pthread_t identi;
     pthread_create(&escu, NULL, threadEscuchar, NULL);
     pthread_create(&identi, NULL, threadIdentificar, NULL);
-    threadList[1] = escu;
-    threadList[2] = identi;
+    threadList[0] = escu;
+    threadList[1] = identi;
 
     while (1)
     {
@@ -108,8 +108,8 @@ int especial(){
         }
     }
 
+    pthread_join(threadList[0], NULL);
     pthread_join(threadList[1], NULL);
-    pthread_join(threadList[2], NULL);
 
     return 0;
 }
@@ -132,10 +132,12 @@ void nombre(char *name){
 
 
 
-void* threadEscuchar(void *arg){
+void* threadEscuchar(){
     escuchar(listaUsuario, &cantidadDeUsuarios);
+    return 0;
 }
 
-void* threadIdentificar(void *arg){
+void* threadIdentificar(){
     identificar(pcName);
+    return 0;
 }
