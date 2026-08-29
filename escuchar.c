@@ -26,7 +26,7 @@ int escuchar(Usuario *lista, int *cantidad)
 
     bind(sock, (struct sockaddr *)&addr, sizeof(addr));
 
-    printf("Esperando otros ordenadores...\n");
+    // printf("Esperando otros ordenadores...\n");
 
     while (1)
     {

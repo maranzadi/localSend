@@ -78,7 +78,7 @@ int especial(){
         }
         else if (strcmp(comando, "/name")==0)
         {
-            printf("%s", pcName);
+            printf("%s\n", pcName);
         }
 
         else if (strncmp(comando, "/send", 5) &&(comando[5] == '\0' || comando[5] == ' '))
