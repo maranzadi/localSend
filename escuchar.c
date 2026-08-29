@@ -62,6 +62,11 @@ int añadir(Usuario *lista, int *cantidad ,char *from, char *name){
     {
         if(strcmp(lista[i].ip, from)==0)
         {
+            if (strcmp(lista[i].name, name)!=0)
+            {
+                strcpy(lista[i].name, name);
+            }
+            
             // printf("Ya estaba");
             return 0;
         }
