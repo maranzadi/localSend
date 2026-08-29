@@ -2,13 +2,14 @@
 #include <string.h>
 #include "escuchar.h"
 #include "identificar.h"
-
+#include <pthread.h>
 
 
 Usuario listaUsuario[104]; 
 int cantidadDeUsuarios =0;
 char pcName[65];
-  
+
+pthread_t threadList[2];
 
 int main(int argc, char **argv) {
 
@@ -40,6 +41,14 @@ int main(int argc, char **argv) {
 
 int especial(){
     char comando[1024];
+
+    // HILOS
+    pthread_t escu;
+    pthread_t identi;
+    pthread_create(&escu, NULL, threadEscuchar, NULL);
+    pthread_create(&identi, NULL, threadIdentificar, NULL);
+    threadList[1] = escu;
+    threadList[2] = identi;
 
     while (1)
     {
@@ -93,6 +102,9 @@ int especial(){
         }
     }
 
+    pthread_join(threadList[1], NULL);
+    pthread_join(threadList[2], NULL);
+
     return 0;
 }
 
@@ -110,4 +122,14 @@ void nombre(char *name){
         strcpy(name, "UNKNOWN");
 
     }
+}
+
+
+
+void* threadEscuchar(void *arg){
+    escuchar(listaUsuario, &cantidadDeUsuarios);
+}
+
+void* threadIdentificar(void *arg){
+    identificar(pcName);
 }
