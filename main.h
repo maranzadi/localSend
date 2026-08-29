@@ -10,3 +10,5 @@ typedef struct {
 
 int especial();
 void nombre(char *lista);
+void* threadEscuchar();
+void* threadIdentificar();
