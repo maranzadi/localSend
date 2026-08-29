@@ -62,7 +62,13 @@ int especial(){
 
         if (strcmp(comando, "/list") == 0)
         {
-            printf("Mostrando lista...\n");
+            // printf("Mostrando lista...\n");
+            for (size_t i = 0; i < cantidadDeUsuarios; i++)
+            {
+              printf("%s (%s)\n", listaUsuario[i].name, listaUsuario[i].ip);
+
+            }
+            
         }
         
         else if (strncmp(comando, "/name", 5) &&(comando[5] == '\0' || comando[5] == ' '))
