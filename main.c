@@ -43,12 +43,12 @@ int especial(){
     char comando[1024];
 
     // HILOS
-    pthread_t escu;
-    pthread_t identi;
-    pthread_create(&escu, NULL, threadEscuchar, NULL);
-    pthread_create(&identi, NULL, threadIdentificar, NULL);
-    threadList[0] = escu;
-    threadList[1] = identi;
+    // pthread_t escu;
+    // pthread_t identi;
+    // pthread_create(&escu, NULL, threadEscuchar, NULL);
+    // pthread_create(&identi, NULL, threadIdentificar, NULL);
+    // threadList[0] = escu;
+    // threadList[1] = identi;
 
     while (1)
     {
@@ -59,6 +59,7 @@ int especial(){
 
         // Quitar el \n
         comando[strcspn(comando, "\n")] = '\0';
+        // printf("%s\n",comando);
 
         if (strcmp(comando, "/list") == 0)
         {
@@ -70,18 +71,17 @@ int especial(){
             }
             
         }
-        
-        else if (strncmp(comando, "/name", 5) &&(comando[5] == '\0' || comando[5] == ' '))
-        {
-            char *argumento = comando + 5;
-            strcpy(argumento, pcName);
-        }
         else if (strcmp(comando, "/name")==0)
         {
             printf("%s\n", pcName);
         }
+        else if (strncmp(comando, "/name", 5) ==0 &&(comando[5] == '\0' || comando[5] == ' '))
+        {
+            strcpy(pcName, comando + 6);
+        }
+        
 
-        else if (strncmp(comando, "/send", 5) &&(comando[5] == '\0' || comando[5] == ' '))
+        else if (strncmp(comando, "/send", 5)==0 &&(comando[5] == '\0' || comando[5] == ' '))
         {
             //Añadir para mandar un mensaje, que los pueda diferenciar
             return 0;
@@ -101,6 +101,9 @@ int especial(){
         else if (strcmp(comando, "/quit") == 0)
         {
             break;
+            pthread_join(threadList[0], NULL);
+            pthread_join(threadList[1], NULL);
+            return 0;
         }
         else
         {
