@@ -1,4 +1,5 @@
 #include "escuchar.h"
+#include "message.h"
 
 
 int escuchar(Usuario *lista, int *cantidad)
@@ -59,13 +60,25 @@ int escuchar(Usuario *lista, int *cantidad)
                 if (payload_size >= sizeof(nombre)){
                     payload_size = sizeof(nombre) - 1;
                 }
-                
+
                 memcpy(nombre, payload, payload_size);
                 nombre[payload_size] = '\0';
 
 
                 añadir(lista, cantidad, inet_ntoa(from.sin_addr), nombre);
+            }else if (header.tipo==_CHAT)
+            {
+                char message[1024];
+
+                if (payload_size >= sizeof(message)){
+                    payload_size = sizeof(message) - 1;
+                }
+
+                memcpy(message, payload, payload_size);
+                message[payload_size] = '\0';
+                printf("%s", message);
             }
+            
             
 
             // printf(
