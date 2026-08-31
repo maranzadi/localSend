@@ -5,9 +5,12 @@
 #include <pthread.h>
 
 
-Usuario listaUsuario[104]; 
+Usuario listaUsuario[256]; 
 int cantidadDeUsuarios =0;
 char pcName[65];
+
+Mensaje listaDeMensajes[256];
+int cantidadDeMensajes =0;
 
 pthread_t threadList[2];
 
