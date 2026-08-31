@@ -41,14 +41,39 @@ int escuchar(Usuario *lista, int *cantidad)
 
         if (n > 0)
         {
-            buffer[n] = '\0';
+            if (n < (int)sizeof(Header))
+            {
+                continue;
+            }
+
+            Header header;
+            memcpy(&header, buffer, sizeof(Header));
+
+            char *payload = buffer + sizeof(Header);
+            int payload_size = n - sizeof(Header);
+
+            if (header.tipo==_DISCOVER)
+            {
+                char nombre[1024];
+
+                if (payload_size >= sizeof(nombre)){
+                    payload_size = sizeof(nombre) - 1;
+                }
+                
+                memcpy(nombre, payload, payload_size);
+                nombre[payload_size] = '\0';
+
+
+                añadir(lista, cantidad, inet_ntoa(from.sin_addr), nombre);
+            }
+            
 
             // printf(
             //     "Encontrado: %s (%s)\n",
             //     buffer,
             //     inet_ntoa(from.sin_addr)
             // );
-            añadir(lista, cantidad, inet_ntoa(from.sin_addr), buffer);
+            
         }
     }
 
