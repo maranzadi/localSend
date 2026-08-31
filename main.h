@@ -7,6 +7,13 @@ typedef struct {
     char name[65];
 } Usuario;
 
+typedef struct main
+{
+   char ip[INET_ADDRSTRLEN];
+   char mensaje;
+}Mensaje;
+
+
 
 int especial();
 void nombre(char *lista);
