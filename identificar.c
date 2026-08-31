@@ -44,12 +44,26 @@ int identificar(char *pcName){
     #endif
     // destino.sin_addr.s_addr = inet_addr("255.255.255.255"); //192.168.0.255 en mac
 
+
+
+    //Añadiendo los headers para poder mandar mensajes sin mucha complicacion
+    char buffer[1024];
+    Header header = {
+        .id = 0,
+        .tipo = _DISCOVER
+    };
+
+    memcpy(buffer, &header, sizeof(header));
+    memcpy(buffer + sizeof(header), pcName, header.longitud);
+
+
+
     while (1)
     {
         int resultado =sendto(
             sock,
-            pcName,
-            strlen(pcName),
+            buffer,
+            sizeof(buffer),
             0,
             (struct sockaddr *)&destino,
             sizeof(destino)
