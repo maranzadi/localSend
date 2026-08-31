@@ -17,3 +17,9 @@ void* threadIdentificar();
 #define DISCOVER 0x01
 #define CHAT 0x02
 #define FILE 0x04
+
+typedef struct {
+    uint16_t id;
+    uint8_t tipo;
+    uint16_t longitud;
+} Header;
