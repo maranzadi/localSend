@@ -44,29 +44,15 @@ int identificar(char *pcName){
 
 
     //Añadiendo los headers para poder mandar mensajes sin mucha complicacion
-    char buffer[1024];
-    Header header = {
-        .id = 0,
-        .tipo = _DISCOVER
-    };
-
-    memcpy(buffer, &header, sizeof(header));
-    int payload_size = strlen(pcName);
-
-    memcpy(
-        buffer + sizeof(header),
-        pcName,
-        payload_size
-    );
-
-    int packet_size = sizeof(header) + payload_size;
-
+    char bufferMain[1024];
+    
+    int packet_sizeMain = prepararMensaje(identificar, pcName, bufferMain);
 
 
     while (1)
     {
         
-        mandar(buffer, packet_size, broadcast);
+        mandar(bufferMain, packet_sizeMain, _BROADCAST);
         sleep(5);
     }
     
@@ -91,5 +77,26 @@ void mandar(char buffer, int tamaño, char nora){
     } else {
         // printf("Enviado: %s (%d bytes)\n", pcName, resultado);
     }
+}
+
+int prepararMensaje(uint8_t tipo, char mensaje, char buffer){
+    Header header = {
+        .id = 0,
+        .tipo = _DISCOVER
+    };
+
+    memcpy(buffer, &header, sizeof(header));
+    int payload_size = strlen(mensaje);
+
+    memcpy(
+        buffer + sizeof(header),
+        mensaje,
+        payload_size
+    );
+
+    int packet_size = sizeof(header) + payload_size;
+
+    return packet_size;
+
 }
 
