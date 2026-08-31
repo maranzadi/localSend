@@ -43,12 +43,12 @@ int especial(){
     char comando[1024];
 
     // HILOS
-    // pthread_t escu;
-    // pthread_t identi;
-    // pthread_create(&escu, NULL, threadEscuchar, NULL);
-    // pthread_create(&identi, NULL, threadIdentificar, NULL);
-    // threadList[0] = escu;
-    // threadList[1] = identi;
+    pthread_t escu;
+    pthread_t identi;
+    pthread_create(&escu, NULL, threadEscuchar, NULL);
+    pthread_create(&identi, NULL, threadIdentificar, NULL);
+    threadList[0] = escu;
+    threadList[1] = identi;
 
     while (1)
     {

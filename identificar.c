@@ -54,7 +54,15 @@ int identificar(char *pcName){
     };
 
     memcpy(buffer, &header, sizeof(header));
-    memcpy(buffer + sizeof(header), pcName, header.longitud);
+    int payload_size = strlen(pcName);
+
+    memcpy(
+        buffer + sizeof(header),
+        pcName,
+        payload_size
+    );
+
+    int packet_size = sizeof(header) + payload_size;
 
 
 
@@ -63,7 +71,7 @@ int identificar(char *pcName){
         int resultado =sendto(
             sock,
             buffer,
-            sizeof(buffer),
+            packet_size,
             0,
             (struct sockaddr *)&destino,
             sizeof(destino)
