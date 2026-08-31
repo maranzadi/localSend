@@ -49,6 +49,8 @@ int identificar(char *pcName){
     int packet_sizeMain = prepararMensaje(identificar, pcName, bufferMain);
 
 
+    char buffer[1024];
+
     while (1)
     {
         
@@ -60,7 +62,7 @@ int identificar(char *pcName){
     
 }
 
-void mandar(char buffer, int tamaño, char nora){
+void mandar(char *buffer, int tamaño, char *nora){
 
     destino.sin_addr.s_addr = inet_addr(nora);
     int resultado =sendto(
@@ -79,7 +81,7 @@ void mandar(char buffer, int tamaño, char nora){
     }
 }
 
-int prepararMensaje(uint8_t tipo, char mensaje, char buffer){
+int prepararMensaje(uint8_t tipo, char *mensaje, char *buffer){
     Header header = {
         .id = 0,
         .tipo = _DISCOVER
