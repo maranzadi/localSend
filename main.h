@@ -14,9 +14,9 @@ void* threadEscuchar();
 void* threadIdentificar();
 
 
-#define _DISCOVER 0x01
-#define _CHAT 0x02
-#define _FILE 0x04
+#define _DISCOVER (0x01<<0) //1
+#define _CHAT (0x01<<1) //2
+#define _FILE (0x01<<2) //4
 
 typedef struct {
     uint16_t id;
