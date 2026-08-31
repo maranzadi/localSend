@@ -39,7 +39,7 @@ int identificar(char *pcName){
     destino.sin_family = AF_INET;
     destino.sin_port = htons(PORT);
 
-    destino.sin_addr.s_addr = inet_addr(_BROADCAST);
+    
 
 
 
@@ -66,7 +66,7 @@ int identificar(char *pcName){
     while (1)
     {
         
-        mandar(buffer, packet_size);
+        mandar(buffer, packet_size, broadcast);
         sleep(5);
     }
     
@@ -74,7 +74,9 @@ int identificar(char *pcName){
     
 }
 
-void mandar(char buffer, int tamaño){
+void mandar(char buffer, int tamaño, char nora){
+
+    destino.sin_addr.s_addr = inet_addr(nora);
     int resultado =sendto(
         sock,
         buffer,
