@@ -1,16 +1,18 @@
 #include "identificar.h"
 #include "main.h"
 
+struct sockaddr_in destino;
+int sock;
 
 int identificar(char *pcName){
     int broadcast = 1;
-    int sock;
+    
 
     
 
     // printf("Mi nombre: %s\n", pcName);
 
-    struct sockaddr_in destino;
+    
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
 
@@ -68,25 +70,29 @@ int identificar(char *pcName){
 
     while (1)
     {
-        int resultado =sendto(
-            sock,
-            buffer,
-            packet_size,
-            0,
-            (struct sockaddr *)&destino,
-            sizeof(destino)
-        );
-
-        if (resultado < 0) {
-            perror("sendto");
-        } else {
-            // printf("Enviado: %s (%d bytes)\n", pcName, resultado);
-        }
-
+        
+        mandar(buffer, packet_size);
         sleep(5);
     }
     
 
     
+}
+
+void mandar(char buffer, int tamaño){
+    int resultado =sendto(
+        sock,
+        buffer,
+        tamaño,
+        0,
+        (struct sockaddr *)&destino,
+        sizeof(destino)
+    );
+
+    if (resultado < 0) {
+        perror("sendto");
+    } else {
+        // printf("Enviado: %s (%d bytes)\n", pcName, resultado);
+    }
 }
 
