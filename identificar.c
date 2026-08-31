@@ -39,12 +39,7 @@ int identificar(char *pcName){
     destino.sin_family = AF_INET;
     destino.sin_port = htons(PORT);
 
-    #if defined(__linux__)
-        destino.sin_addr.s_addr = inet_addr("255.255.255.255");
-    #elif defined(__APPLE__)
-        destino.sin_addr.s_addr = inet_addr("192.168.0.255"); //192.168.0.255 en mac
-    #endif
-    // destino.sin_addr.s_addr = inet_addr("255.255.255.255"); //192.168.0.255 en mac
+    destino.sin_addr.s_addr = inet_addr(_BROADCAST);
 
 
 

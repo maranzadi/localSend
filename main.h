@@ -23,3 +23,11 @@ typedef struct {
     uint8_t tipo;
     uint16_t longitud;
 } Header;
+
+
+
+#if defined(__linux__)
+    #define _BROADCAST "255.255.255.255"
+#elif defined(__APPLE__)
+    #define _BROADCAST "192.168.0.255"
+#endif
