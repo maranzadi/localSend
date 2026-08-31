@@ -12,3 +12,8 @@ int especial();
 void nombre(char *lista);
 void* threadEscuchar();
 void* threadIdentificar();
+
+
+#define DISCOVER 0x01
+#define CHAT 0x02
+#define FILE 0x04
