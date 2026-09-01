@@ -46,7 +46,7 @@ int identificar(char *pcName){
     //Añadiendo los headers para poder mandar mensajes sin mucha complicacion
     char bufferMain[1024];
     
-    int packet_sizeMain = prepararMensaje(identificar, pcName, bufferMain);
+    int packet_sizeMain = prepararMensaje(_DISCOVER, pcName, bufferMain);
 
 
     char buffer[1024];
