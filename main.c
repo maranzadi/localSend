@@ -5,9 +5,12 @@
 #include <pthread.h>
 
 
-Usuario listaUsuario[104]; 
+Usuario listaUsuario[256]; 
 int cantidadDeUsuarios =0;
 char pcName[65];
+
+Mensaje listaDeMensajes[256];
+int cantidadDeMensajes =0;
 
 pthread_t threadList[2];
 
@@ -43,12 +46,12 @@ int especial(){
     char comando[1024];
 
     // HILOS
-    // pthread_t escu;
-    // pthread_t identi;
-    // pthread_create(&escu, NULL, threadEscuchar, NULL);
-    // pthread_create(&identi, NULL, threadIdentificar, NULL);
-    // threadList[0] = escu;
-    // threadList[1] = identi;
+    pthread_t escu;
+    pthread_t identi;
+    pthread_create(&escu, NULL, threadEscuchar, NULL);
+    pthread_create(&identi, NULL, threadIdentificar, NULL);
+    threadList[0] = escu;
+    threadList[1] = identi;
 
     while (1)
     {

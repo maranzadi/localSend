@@ -1,0 +1,1 @@
+void imprimirMensaje(char *mensaje);

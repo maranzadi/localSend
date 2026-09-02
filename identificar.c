@@ -1,16 +1,18 @@
 #include "identificar.h"
 #include "main.h"
 
+struct sockaddr_in destino;
+int sock;
 
 int identificar(char *pcName){
     int broadcast = 1;
-    int sock;
+    
 
     
 
     // printf("Mi nombre: %s\n", pcName);
 
-    struct sockaddr_in destino;
+    
 
     sock = socket(AF_INET, SOCK_DGRAM, 0);
 
@@ -37,34 +39,66 @@ int identificar(char *pcName){
     destino.sin_family = AF_INET;
     destino.sin_port = htons(PORT);
 
-    #if defined(__linux__)
-        destino.sin_addr.s_addr = inet_addr("255.255.255.255");
-    #elif defined(__APPLE__)
-        destino.sin_addr.s_addr = inet_addr("192.168.0.255"); //192.168.0.255 en mac
-    #endif
-    // destino.sin_addr.s_addr = inet_addr("255.255.255.255"); //192.168.0.255 en mac
+    
+
+
+
+    //Añadiendo los headers para poder mandar mensajes sin mucha complicacion
+    char bufferMain[1024];
+    
+    int packet_sizeMain = prepararMensaje(_DISCOVER, pcName, bufferMain);
+
+
+    char buffer[1024];
 
     while (1)
     {
-        int resultado =sendto(
-            sock,
-            pcName,
-            strlen(pcName),
-            0,
-            (struct sockaddr *)&destino,
-            sizeof(destino)
-        );
-
-        if (resultado < 0) {
-            perror("sendto");
-        } else {
-            // printf("Enviado: %s (%d bytes)\n", pcName, resultado);
-        }
-
+        
+        mandar(bufferMain, packet_sizeMain, _BROADCAST);
         sleep(5);
     }
     
 
     
+}
+
+void mandar(char *buffer, int tamaño, char *nora){
+
+    destino.sin_addr.s_addr = inet_addr(nora);
+    int resultado =sendto(
+        sock,
+        buffer,
+        tamaño,
+        0,
+        (struct sockaddr *)&destino,
+        sizeof(destino)
+    );
+
+    if (resultado < 0) {
+        perror("sendto");
+    } else {
+        // printf("Enviado: %s (%d bytes)\n", pcName, resultado);
+    }
+}
+
+int prepararMensaje(uint8_t tipo, char *mensaje, char *buffer){
+    Header header = {
+        .id = 0,
+        .tipo = _DISCOVER
+    };
+
+    memcpy(buffer, &header, sizeof(header));
+    int payload_size = strlen(mensaje);
+
+    memcpy(
+        buffer + sizeof(header),
+        mensaje,
+        payload_size
+    );
+
+    int packet_size = sizeof(header) + payload_size;
+
+    return packet_size;
+
 }
 

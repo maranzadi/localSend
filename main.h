@@ -7,6 +7,13 @@ typedef struct {
     char name[65];
 } Usuario;
 
+typedef struct main
+{
+   char ip[INET_ADDRSTRLEN];
+   char mensaje;
+}Mensaje;
+
+
 
 int especial();
 void nombre(char *lista);
@@ -14,6 +21,20 @@ void* threadEscuchar();
 void* threadIdentificar();
 
 
-#define DISCOVER 0x01
-#define CHAT 0x02
-#define FILE 0x04
+#define _DISCOVER (0x01<<0) //1
+#define _CHAT (0x01<<1) //2
+#define _FILE (0x01<<2) //4
+
+typedef struct {
+    uint16_t id;
+    uint8_t tipo;
+    uint16_t longitud;
+} Header;
+
+
+
+#if defined(__linux__)
+    #define _BROADCAST "255.255.255.255"
+#elif defined(__APPLE__)
+    #define _BROADCAST "192.168.0.255"
+#endif
